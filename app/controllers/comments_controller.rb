@@ -56,8 +56,12 @@ class CommentsController < ApplicationController
 
   def undo_link
     if can? :revert, :versions
-      version = @comment.versions.scoped.last
+      version = @comment.versions.last
       view_context.link_to("undo", revert_version_path(version), :method => :post) if can? :revert, version
     end
+  end
+  
+  def comment_params
+    params.require(:comment).permit(:name, :age)
   end
 end

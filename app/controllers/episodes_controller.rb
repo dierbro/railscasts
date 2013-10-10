@@ -57,4 +57,9 @@ class EpisodesController < ApplicationController
     else 10
     end
   end
+  
+  def episode_params
+    params.require(:episode).permit(:asciicasts, :description, 
+                                    :name,  :notes, :position, :published_at, :duration, :tag_names, :timecode)
+  end
 end
