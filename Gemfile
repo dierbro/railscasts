@@ -1,18 +1,21 @@
 source 'http://rubygems.org'
 
-gem "rails", "3.0.10"
+gem "rails", "4.0.0"
 gem "mysql2"
 gem "redcarpet"
 gem "coderay"
-gem "thinking-sphinx", ">= 2.0.1", :require => "thinking_sphinx"
+gem 'thinking-sphinx', '3.0.5'
 gem "whenever", :require => false
-gem "will_paginate", ">= 3.0.pre2"
-gem "jquery-rails"
+gem 'will_paginate', '~> 3.0'
 gem "omniauth", ">= 0.2.2"
 gem "exception_notification", :git => "git://github.com/rails/exception_notification.git", :require => "exception_notifier"
 gem "ancestry"
 gem "cancan", :git => "git://github.com/ryanb/cancan.git", :branch => "2.0"
 gem "paper_trail"
+
+gem 'coffee-rails'
+gem 'sass-rails'
+gem 'uglifier'
 
 group :development, :test do
   gem "rspec-rails"
