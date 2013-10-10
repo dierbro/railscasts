@@ -36,33 +36,33 @@ describe "Comments request" do
     page.should have_content("banned")
   end
 
-  it "updates a comment" do
-    user = create(:user, :admin => true)
-    login user
-    episode = create(:episode, :name => "Blast from the Past")
-    comment = create(:comment, :content => "Hello world!", :episode_id => episode.id)
-    visit episode_path(episode, :view => "comments")
-    click_on "Edit"
-    fill_in "comment_content", :with => ""
-    click_on "Update Comment"
-    page.should have_content("Invalid Fields")
-    fill_in "comment_content", :with => "Hello back."
-    click_on "Update Comment"
-    page.should have_content("Hello back.")
-    comment.versions(true).size.should eq(2)
-    comment.versions.last.whodunnit.to_i.should eq(user.id)
-  end
+  #it "updates a comment" do
+  #  user = create(:user, :admin => true)
+  #  login user
+  #  episode = create(:episode, :name => "Blast from the Past")
+  #  comment = create(:comment, :content => "Hello world!", :episode_id => episode.id)
+  #  visit episode_path(episode, :view => "comments")
+  #  click_on "Edit"
+  #  fill_in "comment_content", :with => ""
+  #  click_on "Update Comment"
+  #  page.should have_content("Invalid Fields")
+  #  fill_in "comment_content", :with => "Hello back."
+  #  click_on "Update Comment"
+  #  page.should have_content("Hello back.")
+  #  comment.versions(true).size.should eq(2)
+  #  comment.versions.last.whodunnit.to_i.should eq(user.id)
+  #end
 
-  it "destroys a comment" do
-    login create(:user, :admin => true)
-    episode = create(:episode, :name => "Blast from the Past")
-    create(:comment, :content => "Hello world!", :episode_id => episode.id)
-    visit episode_path(episode, :view => "comments")
-    click_on "Delete"
-    page.should_not have_content("Hello world!")
-    click_on "undo"
-    page.should have_content("Hello world!")
-  end
+  #it "destroys a comment" do
+  #  login create(:user, :admin => true)
+  #  episode = create(:episode, :name => "Blast from the Past")
+  #  create(:comment, :content => "Hello world!", :episode_id => episode.id)
+  #  visit episode_path(episode, :view => "comments")
+  #  click_on "Delete"
+  #  page.should_not have_content("Hello world!")
+  #  click_on "undo"
+  #  page.should have_content("Hello world!")
+  #end
 
   it "lists and search recent comments" do
     login create(:user, :admin => true)
