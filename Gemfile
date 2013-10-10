@@ -17,6 +17,8 @@ gem "paper_trail", "3.0.0.beta1"
 gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
+gem 'jquery-rails'
+
 
 group :development, :test do
   gem "rspec-rails"
