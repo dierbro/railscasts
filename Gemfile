@@ -12,7 +12,7 @@ gem "omniauth-github"
 gem "exception_notification", :git => "git://github.com/rails/exception_notification.git", :require => "exception_notifier"
 gem "ancestry"
 gem "cancan", :git => "git://github.com/ryanb/cancan.git", :branch => "2.0"
-gem "paper_trail"
+gem "paper_trail", "3.0.0.beta1"
 
 gem 'coffee-rails'
 gem 'sass-rails'
