@@ -1,7 +1,7 @@
 <%= div_for comment do %>
   <div class="avatar"><%= image_tag avatar_url(comment), :size => "64x64", :alt => "Avatar" %></div>
   <div class="actions user_actions">
-    <%= link_to "Ban User", ban_user_path(comment.user), :confirm => "Are you certain you want to ban this user? It will delete all of his comments and not allow him to comment again.", :remote => true, :method => :put if comment.user && can?(:ban, comment.user) %>
+    <%= link_to "Ban User", ban_user_path(comment.user), data: {:confirm => "Are you certain you want to ban this user? It will delete all of his comments and not allow him to comment again."}, :remote => true, :method => :put if comment.user && can?(:ban, comment.user) %>
   </div>
   <div class="main">
     <%= render "comments/comment_headline", :comment => comment %>
