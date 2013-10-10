@@ -58,7 +58,7 @@ describe "Episodes request" do
     create(:episode, :name => "Star Wars", :position => 2)
     create(:episode, :name => "Past and Present", :position => 3)
     visit episodes_path
-    click_on "Blast from the Past"
+    find('h2 > a', text: "Blast from the Past").click
     page.should have_content("Blast from the Past")
     page.should have_content("Show notes!")
     page.should_not have_content("Hello world")
