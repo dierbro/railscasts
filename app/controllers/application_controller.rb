@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  # Hack to make cancan work with rails4 -> https://github.com/ryanb/cancan/issues/835
+  before_filter do
+    resource = controller_name.singularize.to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
+
   protected
 
   # overrides ActionController::RequestForgeryProtection#handle_unverified_request
