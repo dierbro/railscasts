@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Comments request" do
   it "creates and replies when not signed in" do
-    episode = Factory(:episode, :name => "Blast from the Past")
+    episode = create(:episode, :name => "Blast from the Past")
     visit episode_path(episode)
     click_on "0 Comments"
     click_on "sign in through GitHub"
@@ -20,7 +20,7 @@ describe "Comments request" do
   end
 
   it "send email to original authors when replying to comment" do
-    comment = Factory(:comment)
+    comment = create(:comment)
     login
     visit episode_path(comment.episode, :view => "comments")
     click_on "Reply"
@@ -31,16 +31,16 @@ describe "Comments request" do
   end
 
   it "creates when banned" do
-    login Factory(:user, :banned_at => Time.now)
-    visit episode_path(Factory(:episode), :view => "comments")
+    login create(:user, :banned_at => Time.now)
+    visit episode_path(create(:episode), :view => "comments")
     page.should have_content("banned")
   end
 
   it "updates a comment" do
-    user = Factory(:user, :admin => true)
+    user = create(:user, :admin => true)
     login user
-    episode = Factory(:episode, :name => "Blast from the Past")
-    comment = Factory(:comment, :content => "Hello world!", :episode_id => episode.id)
+    episode = create(:episode, :name => "Blast from the Past")
+    comment = create(:comment, :content => "Hello world!", :episode_id => episode.id)
     visit episode_path(episode, :view => "comments")
     click_on "Edit"
     fill_in "comment_content", :with => ""
@@ -54,9 +54,9 @@ describe "Comments request" do
   end
 
   it "destroys a comment" do
-    login Factory(:user, :admin => true)
-    episode = Factory(:episode, :name => "Blast from the Past")
-    Factory(:comment, :content => "Hello world!", :episode_id => episode.id)
+    login create(:user, :admin => true)
+    episode = create(:episode, :name => "Blast from the Past")
+    create(:comment, :content => "Hello world!", :episode_id => episode.id)
     visit episode_path(episode, :view => "comments")
     click_on "Delete"
     page.should_not have_content("Hello world!")
@@ -65,9 +65,9 @@ describe "Comments request" do
   end
 
   it "lists and search recent comments" do
-    login Factory(:user, :admin => true)
-    Factory(:comment, :content => "Hello world!")
-    Factory(:comment, :content => "Back to the Future", :site_url => "http://example.com")
+    login create(:user, :admin => true)
+    create(:comment, :content => "Hello world!")
+    create(:comment, :content => "Back to the Future", :site_url => "http://example.com")
     visit comments_path
     page.should have_content("Hello world!")
     page.should have_content("Back to the Future")
