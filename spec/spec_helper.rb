@@ -20,7 +20,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 OmniAuth.config.test_mode = true
 OmniAuth.config.mock_auth[:github] = {
   'uid' => '12345',
-  "user_info" => {
+  "info" => {
     "email" => "foo@example.com",
     "nickname" => "foobar",
     "name" => "Foo Bar"

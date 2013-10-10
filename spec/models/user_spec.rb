@@ -6,11 +6,11 @@ describe User do
   end
 
   it "creates from omniauth hash" do
-    omniauth = {"provider" => "github", "uid" => "123", "user_info" => {}, "extra" => {"user_hash" => {}}}
-    omniauth["user_info"]["email"] = "foo@example.com"
-    omniauth["user_info"]["name"] = "Bar"
-    omniauth["user_info"]["nickname"] = "foo"
-    omniauth["user_info"]["urls"] = {"GitHub" => "githubsite", "Blog" => "customsite"}
+    omniauth = {"provider" => "github", "uid" => "123", "info" => {}, "extra" => {"user_hash" => {}}}
+    omniauth["info"]["email"] = "foo@example.com"
+    omniauth["info"]["name"] = "Bar"
+    omniauth["info"]["nickname"] = "foo"
+    omniauth["info"]["urls"] = {"GitHub" => "githubsite", "Blog" => "customsite"}
     omniauth["extra"]["user_hash"]["gravatar_id"] = "avatar"
     user = User.create_from_omniauth(omniauth)
     user.email.should eq("foo@example.com")

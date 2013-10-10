@@ -20,4 +20,7 @@ class FeedbackMessagesController < ApplicationController
       end
     end
   end
+  def feedback_message_params
+    params.require(:feedback_message).permit(:content, :email, :name) 
+  end
 end

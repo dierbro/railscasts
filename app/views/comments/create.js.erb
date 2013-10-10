@@ -6,5 +6,5 @@
 <% if @comment.errors.present? %>
   container.find("form").prepend("<%= escape_javascript error_messages_for(@comment) %>");
 <% else %>
-  container.children("#new_comment").replaceWith("<%= escape_javascript render(@comment) %>");
+  container.children("#new_comment").replaceWith("<%= escape_javascript render(@comment) %> <%= escape_javascript content_tag(:div, "", :class => "nested_comments") %>");
 <% end %>

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.attributes = params[:user]
+    @user.attributes = user_params
     @user.save!
     redirect_to @user, :notice => "Successfully updated profile."
   end
@@ -58,5 +58,9 @@ class UsersController < ApplicationController
 
   def load_current_user
     @user = current_user
+  end
+  
+  def user_params
+    params.require(:user).permit(:email, :email_on_reply, :name, :site_url)
   end
 end

@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment.update_attributes(params[:comment])
+    @comment.update_attributes(comment_params)
     respond_to do |format|
       format.html do
         if @comment.errors.present?
@@ -62,6 +62,6 @@ class CommentsController < ApplicationController
   end
   
   def comment_params
-    params.require(:comment).permit(:name, :age)
+    params.require(:comment).permit(:content, :episode_id, :parent_id)
   end
 end
