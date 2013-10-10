@@ -1,16 +1,16 @@
 Railscasts::Application.routes.draw do
   root :to => "episodes#index"
 
-  match "auth/:provider/callback" => "users#create"
-  match "about" => "info#about", :as => "about"
-  match "give_back" => "info#give_back", :as => "give_back"
-  match "moderators" => "info#moderators", :as => "moderators"
-  match "login" => "users#login", :as => "login"
-  match "logout" => "users#logout", :as => "logout"
-  match "feedback" => "feedback_messages#new", :as => "feedback"
-  match "episodes/archive" => redirect("/?view=list")
-  match 'unsubscribe/:token' => 'users#unsubscribe', :as => "unsubscribe"
-  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+  get "auth/:provider/callback", to: "users#create"
+  get "about", to: "info#about", as: "about"
+  get "give_back", to: "info#give_back", as: "give_back"
+  get "moderators", to: "info#moderators", as: "moderators"
+  get "login", to: "users#login", as: "login"
+  get "logout", to:  "users#logout", as: "logout"
+  get "feedback", to: "feedback_messages#new", as: "feedback"
+  get "episodes/archive", to: redirect("/?view=list")
+  get 'unsubscribe/:token', to: 'users#unsubscribe', as: "unsubscribe"
+  post "versions/:id/revert", to: "versions#revert", as: "revert_version"
 
   resources :users do
     member { put :ban }
@@ -19,5 +19,5 @@ Railscasts::Application.routes.draw do
   resources :episodes
   resources :feedback_messages
 
-  match "tags/:id" => redirect("/?tag_id=%{id}")
+  get "tags/:id", to: redirect("/?tag_id=%{id}")
 end
