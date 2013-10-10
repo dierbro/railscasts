@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :content, :episode_id
 
-  scope :recent, order("created_at DESC")
+  scope :recent, -> {order("created_at DESC")}
 
   has_paper_trail
   has_ancestry

@@ -6,6 +6,6 @@ describe Tag do
     Tag.create!(:name => 'foo')
     tags = Tag.with_names(['foo', 'bar'])
     tags.should have(2).records
-    Tag.find(:all).should eq(tags)
+    Tag.all.should eq(tags)
   end
 end

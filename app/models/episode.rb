@@ -8,7 +8,7 @@ class Episode < ActiveRecord::Base
   scope :published, lambda { where('published_at <= ?', Time.now.utc) }
   scope :unpublished, lambda { where('published_at > ?', Time.now.utc) }
   scope :tagged, lambda { |tag_id| tag_id ? joins(:taggings).where(:taggings => {:tag_id => tag_id}) : scoped }
-  scope :recent, order('position DESC')
+  scope :recent, -> {order('position DESC')}
 
   validates_presence_of :published_at, :name
   serialize :file_sizes

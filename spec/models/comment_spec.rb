@@ -10,7 +10,7 @@ describe Comment do
   end
 
   it "sets request based attributes" do
-    comment = Factory.build(:comment, :site_url => 'example.com')
+    comment = build(:comment, :site_url => 'example.com')
     comment.request = OpenStruct.new(:remote_ip => 'ip', :env => { 'HTTP_USER_AGENT' => 'agent', 'HTTP_REFERER' => 'referrer' })
     comment.user_ip.should eq('ip')
     comment.user_agent.should eq('agent')
@@ -19,32 +19,32 @@ describe Comment do
 
   it "sorts recent comments in descending order by created_at time" do
     Comment.delete_all
-    c1 = Factory(:comment, :created_at => 2.weeks.ago)
-    c2 = Factory(:comment, :created_at => Time.now)
+    c1 = create(:comment, :created_at => 2.weeks.ago)
+    c2 = create(:comment, :created_at => Time.now)
     Comment.recent.should eq([c2, c1])
   end
 
   it "notifies owners of all previous commenters except self" do
-    c1 = Factory(:comment)
-    c2a = Factory(:comment, :parent => c1)
-    c2b = Factory(:comment, :parent => c1)
-    c3 = Factory(:comment, :parent => c2a, :user => c2a.user)
+    c1 = create(:comment)
+    c2a = create(:comment, :parent => c1)
+    c2b = create(:comment, :parent => c1)
+    c3 = create(:comment, :parent => c2a, :user => c2a.user)
     c3.notify_other_commenters
     email_count.should eq(1)
     last_email.to.should include(c1.user.email)
   end
 
   it "does not notify user when user does not want email" do
-    c1 = Factory(:comment, :user => nil)
-    c2 = Factory(:comment, :parent => c2, :user => Factory(:user, :email_on_reply => false))
-    c3 = Factory(:comment, :parent => c2, :user => Factory(:user, :email => ""))
-    c4 = Factory(:comment, :parent => c3)
+    c1 = create(:comment, :user => nil)
+    c2 = create(:comment, :parent => c2, :user => create(:user, :email_on_reply => false))
+    c3 = create(:comment, :parent => c2, :user => create(:user, :email => ""))
+    c4 = create(:comment, :parent => c3)
     c4.users_to_notify.should eq([])
   end
 
   it "searches by comment site url" do
-    c1 = Factory(:comment, :site_url => "http://example.com")
-    c2 = Factory(:comment, :site_url => "http://example2.com")
+    c1 = create(:comment, :site_url => "http://example.com")
+    c2 = create(:comment, :site_url => "http://example2.com")
     Comment.search("example.com").should eq([c1])
   end
 end

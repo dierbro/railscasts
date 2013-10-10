@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :site_url, :email_on_reply
+  #FIXME: user strong parameters
+  #attr_accessible :name, :email, :site_url, :email_on_reply
   before_create { generate_token(:token) }
   has_many :comments
   has_paper_trail
