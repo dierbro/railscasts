@@ -71,6 +71,8 @@ RSpec.configure do |config|
 
   config.include AuthMacros
   config.include MailerMacros
+  config.include Requests::JsonHelpers, type: :request
+
 end
 
 

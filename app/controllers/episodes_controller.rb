@@ -8,10 +8,8 @@ class EpisodesController < ApplicationController
     else
       @episodes = Episode.search_published(params[:search], params[:tag_id])
     end
-    respond_to do |format|
-      format.html { @episodes = @episodes.paginate(:page => params[:page], :per_page => episodes_per_page) }
-      format.rss
-    end
+
+    render json: @episodes
   end
 
   def show
