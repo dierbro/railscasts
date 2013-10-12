@@ -11,6 +11,15 @@ GIT
   specs:
     cancan (2.0.0.alpha)
 
+GIT
+  remote: https://github.com/rails-api/rails-api.git
+  revision: dc41dca6c61c27f96d2df10550c48d33c58ab3c1
+  specs:
+    rails-api (0.1.0)
+      actionpack (>= 3.2.11)
+      railties (>= 3.2.11)
+      tzinfo (~> 0.3.31)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -23,6 +32,8 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -231,6 +242,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   ancestry
   cancan!
   capistrano
@@ -251,6 +263,7 @@ DEPENDENCIES
   omniauth-github
   paper_trail (= 3.0.0.beta1)
   rails (= 4.0.0)
+  rails-api!
   redcarpet
   rspec-rails
   sass-rails

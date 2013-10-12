@@ -1,8 +1,11 @@
-class ApplicationController < ActionController::Base
-  protect_from_forgery
-  enable_authorization do |exception|
-    redirect_to root_url, :alert => exception.message
-  end
+class ApplicationController < ActionController::API
+  include CanCan::ControllerAdditions
+  include ActionController::Cookies
+
+#  protect_from_forgery
+#  enable_authorization do |exception|
+#    redirect_to root_url, :alert => exception.message
+#  end
 
   # Hack to make cancan work with rails4 -> https://github.com/ryanb/cancan/issues/835
   before_filter do

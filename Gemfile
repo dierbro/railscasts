@@ -1,6 +1,10 @@
 source 'http://rubygems.org'
 
 gem "rails", "4.0.0"
+gem 'rails-api', git: "https://github.com/rails-api/rails-api.git"
+gem "active_model_serializers"
+
+
 gem "mysql2"
 gem "redcarpet"
 gem "coderay"
