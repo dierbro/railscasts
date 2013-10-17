@@ -13,12 +13,13 @@ class EpisodesController < ApplicationController
   end
 
   def show
-    if params[:id] != @episode.to_param
-      headers["Status"] = "301 Moved Permanently"
-      redirect_to episode_url(@episode)
-    else
-      @comment = Comment.new(:episode => @episode, :user => current_user)
-    end
+    #if params[:id] != @episode.to_param
+    #  headers["Status"] = "301 Moved Permanently"
+    #  redirect_to episode_url(@episode)
+    #else
+    #  @comment = Comment.new(:episode => @episode, :user => current_user)
+    render json: @episode, serializer: EpisodeDetailedSerializer
+    #end
   end
 
   def new

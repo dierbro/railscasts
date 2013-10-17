@@ -1,3 +1,4 @@
 class EpisodeSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :description, :published_at, :seconds
 end
+

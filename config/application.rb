@@ -75,7 +75,6 @@ module Railscasts
     config.middleware.use ActionDispatch::Flash
     
     config.api_only = false
-
   end
 end
 
