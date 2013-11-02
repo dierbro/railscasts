@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+now = Time.now
+100.times do |i|
+  Episode.create!({name: Faker::Lorem.sentence(1), description: Faker::Lorem.paragraph(3), notes: Faker::Lorem.paragraph(8), seconds: 123, published_at: now-i.days, position: i})
+end

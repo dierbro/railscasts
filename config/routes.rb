@@ -12,6 +12,7 @@ Railscasts::Application.routes.draw do
   get 'unsubscribe/:token', to: 'users#unsubscribe', as: "unsubscribe"
   post "versions/:id/revert", to: "versions#revert", as: "revert_version"
 
+  get "episode_detailed/:id", to: "episodes#show"
   resources :users do
     member { put :ban }
   end

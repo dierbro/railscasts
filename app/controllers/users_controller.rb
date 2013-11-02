@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
+  include ActionController::MimeResponds
+
   before_filter :load_current_user, :only => [:edit, :update]
   load_and_authorize_resource
 
   def show
+    render json: @user
   end
 
   def create
@@ -10,7 +13,14 @@ class UsersController < ApplicationController
     logger.info omniauth.inspect
     @user = User.find_by_github_uid(omniauth["uid"]) || User.create_from_omniauth(omniauth)
     cookies.permanent[:token] = @user.token
-    redirect_to_target_or_default root_url, :notice => "Signed in successfully"
+    #window.opener.Discourse.authenticationComplete({"email":"","name":"Dierbro","username":"dierbro1","auth_provider":"Github","email_valid":true});
+    #            window.close();
+#    redirect_to_target_or_default root_url, :notice => "Signed in successfully"
+    if @user.new_record?
+      render json: { errors: @user.errors.messages }, status: 422
+    else
+      render text: JsGenerator.after_login(@user.session_api_key, @user.id)
+    end
   end
 
   def edit
@@ -19,7 +29,8 @@ class UsersController < ApplicationController
   def update
     @user.attributes = user_params
     @user.save!
-    redirect_to @user, :notice => "Successfully updated profile."
+    #redirect_to @user, :notice => "Successfully updated profile."
+    render json: @user.session_api_key, status: 201
   end
 
   def login

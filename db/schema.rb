@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20110725215614) do
+ActiveRecord::Schema.define(version: 20131021151647) do
+
+  create_table "api_keys", force: true do |t|
+    t.integer  "user_id"
+    t.string   "access_token"
+    t.string   "scope"
+    t.datetime "expired_at"
+    t.datetime "created_at"
+  end
+
+  add_index "api_keys", ["access_token"], name: "index_api_keys_on_access_token", unique: true, using: :btree
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "episode_id"

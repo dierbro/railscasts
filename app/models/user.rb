@@ -1,7 +1,8 @@
-class User < ActiveRecord::Base
+  class User < ActiveRecord::Base
   #FIXME: user strong parameters
   #attr_accessible :name, :email, :site_url, :email_on_reply
   before_create { generate_token(:token) }
+  has_many :api_keys
   has_many :comments
   has_paper_trail
 
@@ -30,6 +31,10 @@ class User < ActiveRecord::Base
     begin
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
+  end
+
+  def session_api_key
+    api_keys.active.session.first_or_create
   end
 
   def display_name

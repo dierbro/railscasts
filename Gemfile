@@ -26,13 +26,15 @@ gem 'jquery-rails'
 group :development, :test do
   gem "rspec-rails"
   gem "launchy"
+  gem 'timecop'
+  gem 'faker'
 end
 
 group :test do
   gem "factory_girl_rails"
   gem "capybara"
   gem "database_cleaner"
-  gem "guard"
+  gem 'guard', '>=2.1.0'
   gem "guard-rspec"
   gem "fakeweb"
   gem "simplecov", :require => false

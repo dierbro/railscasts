@@ -15,7 +15,35 @@ class ApplicationController < ActionController::API
   end
 
   protected
+  # Renders a 401 status code if the current user is not authorized
+  def ensure_authenticated_user
+    head :unauthorized unless current_user
+  end
 
+  # Returns the active user associated with the access token if available
+  def current_user
+    api_key = ApiKey.active.where(access_token: token).first
+    if api_key
+      return api_key.user
+    else
+      return nil
+    end
+  end
+  helper_method :current_user
+
+  # Parses the access token from the header
+  def token
+    bearer = request.headers["HTTP_AUTHORIZATION"]
+
+    # allows our tests to pass
+    bearer ||= request.headers["rack.session"].try(:[], 'Authorization')
+
+    if bearer.present?
+      bearer.split.last
+    else
+      nil
+    end
+  end
   # overrides ActionController::RequestForgeryProtection#handle_unverified_request
   def handle_unverified_request
     super
@@ -28,10 +56,6 @@ class ApplicationController < ActionController::API
     current_user && current_user.id
   end
 
-  def current_user
-    @current_user ||= User.find_by_token(cookies[:token]) if cookies[:token]
-  end
-  helper_method :current_user
 
   def redirect_to_target_or_default(default, *options)
     redirect_to(session[:return_to] || default, *options)

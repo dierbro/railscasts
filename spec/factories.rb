@@ -25,6 +25,10 @@ FactoryGirl.define  do
     email_on_reply true
   end
 
+  factory :api_key do
+    scope "session"
+  end
+
   factory :feedback_message do
     name "Foo Bar"
     content "Hello World"
